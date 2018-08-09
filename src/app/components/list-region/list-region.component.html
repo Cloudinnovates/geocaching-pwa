@@ -1,0 +1,32 @@
+<ng4-loading-spinner [loadingText]="'Cargando lista de regiones ...'"> </ng4-loading-spinner>
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container d-flex justify-content-between right">
+            <span class="navbar-brand d-flex align-items-center right">
+                <a mdbWavesEffect routerLink="/profile" class="icon-white">
+                    <i class="fa fa-user-circle right" aria-hidden="true"></i>
+                </a>
+            </span>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="container container-fluid center mt-70">
+
+    <mdb-card *ngFor="let region of regions" class="card card-image mb-3 center">
+
+        <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+            <img class="card-img" [src]="getPhoto(region.foto)" alt="Foto: region.nombre" />
+        </div>
+
+        <mdb-card-body>
+
+            <mdb-card-title>
+                <h4>{{ region.nombre }}</h4>
+            </mdb-card-title>
+
+        </mdb-card-body>
+    </mdb-card>
+
+</main>

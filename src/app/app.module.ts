@@ -11,12 +11,23 @@ import { PWARoutes } from './Routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SesionService } from './services/sesion.service';
+import { UserService } from './services/user.service';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { ToastrModule } from 'ngx-toastr';
+import { ToastService } from './services/toast.service';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { ListRegionComponent } from './components/list-region/list-region.component';
+import { RegionService } from './services/region.service';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        RegisterUserComponent
+        RegisterUserComponent,
+        ListRegionComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,
@@ -26,10 +37,13 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
         FormsModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
+        AngularFireStorageModule,
         MDBBootstrapModule.forRoot(),
-        AngularFireModule.initializeApp(environment.firebase)
+        AngularFireModule.initializeApp(environment.firebase),
+        ToastrModule.forRoot(),
+        Ng4LoadingSpinnerModule.forRoot()
     ],
-    providers: [],
+    providers: [SesionService, UserService, ToastService, RegionService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

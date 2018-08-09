@@ -1,0 +1,14 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container d-flex justify-content-between">
+            <a class="navbar-brand d-flex align-items-center" routerLink="/regions">
+                <i class="fa fa-arrow-left left" aria-hidden="true"></i>
+            </a>
+            <span class="navbar-brand d-flex align-items-center">Perfil de usuario</span>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="container container-fluid mt-100">
+{{ user | json }}
+</main>
