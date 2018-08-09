@@ -17,4 +17,20 @@ export class ProfileComponent implements OnInit {
         this.user = this.sesion.getUser();
     }
 
+    changeListener($event): void {
+        this.readThis($event.target);
+    }
+
+    readThis(inputValue: any): void {
+        var file: File = inputValue.files[0];
+        console.log(file);
+        var myReader: FileReader = new FileReader();
+
+        myReader.onloadend = (e) => {
+            const image = myReader.result;
+            console.log(image)
+        }
+        myReader.readAsDataURL(file);
+    }
+
 }

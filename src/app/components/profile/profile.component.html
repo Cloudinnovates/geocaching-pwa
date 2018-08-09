@@ -11,4 +11,8 @@
 
 <main role="main" class="container container-fluid mt-100">
 {{ user | json }}
+<br>
+<input id="file" type="file" accept="image/*" (change)="changeListener($event)">
+
+
 </main>
