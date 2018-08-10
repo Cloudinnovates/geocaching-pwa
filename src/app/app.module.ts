@@ -20,6 +20,9 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { ListRegionComponent } from './components/list-region/list-region.component';
 import { RegionService } from './services/region.service';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmCloseSesionComponent } from './components/dialogs/confirm-close-sesion/confirm-close-sesion.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +30,8 @@ import { ProfileComponent } from './components/profile/profile.component';
         LoginComponent,
         RegisterUserComponent,
         ListRegionComponent,
-        ProfileComponent
+        ProfileComponent,
+        ConfirmCloseSesionComponent
     ],
     imports: [
         BrowserModule,
@@ -38,11 +42,14 @@ import { ProfileComponent } from './components/profile/profile.component';
         BrowserAnimationsModule,
         ReactiveFormsModule,
         AngularFireStorageModule,
+        MatButtonModule,
+        MatDialogModule,
         MDBBootstrapModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebase),
         ToastrModule.forRoot(),
         Ng4LoadingSpinnerModule.forRoot()
     ],
+    entryComponents: [ConfirmCloseSesionComponent],
     providers: [SesionService, UserService, ToastService, RegionService],
     bootstrap: [AppComponent]
 })

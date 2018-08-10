@@ -9,10 +9,96 @@
     </nav>
 </header>
 
-<main role="main" class="container container-fluid mt-100">
-{{ user | json }}
-<br>
-<input id="file" type="file" accept="image/*" (change)="changeListener($event)">
+<main role="main" class="container container-fluid mt-60">
+    <button mdbBtn (click)="selectFile()" type="button" color="danger" class="waves-light fab" [disableRipple]="true" mat-fab
+        mat-button mdbWavesEffect>
+        <i class="fa fa-camera" aria-hidden="true"></i>
+    </button>
 
+    <div class="row">
+        <mdb-card class="col-12 testimonial-card">
+            <!--Bacground color-->
+            <div class="card-up indigo lighten-1">
+            </div>
+
+            <!--Avatar-->
+            <div class="avatar mx-auto">
+                <img [src]="getPhotoAvatar()" class="rounded-circle">
+            </div>
+
+            <mdb-card-body>
+                <!--Name-->
+                <mdb-card-title>
+                    <h4>{{user.nombre}}</h4>
+                </mdb-card-title>
+            </mdb-card-body>
+        </mdb-card>
+    </div>
+
+    <div class="row pt-20 item-profile">
+        <div class="col-2 icon-profile">
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </div>
+
+        <div class="col-6 col-md-4">
+            <h2>{{ user.nombre }}</h2>
+            <p>Nombre</p>
+        </div>
+    </div>
+
+    <div class="row pt-20 item-profile">
+        <div class="col-2 icon-profile">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+        </div>
+
+        <div class="col-6 col-md-4">
+            <h2>{{ user.email }}</h2>
+            <p>Email</p>
+        </div>
+    </div>
+
+    <div class="row pt-20 item-profile">
+        <div class="col-2 icon-profile">
+            <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+        </div>
+
+        <div class="col-6 col-md-4">
+            <h2>{{ user.id }}</h2>
+            <p>Firebase uid</p>
+        </div>
+    </div>
+
+    <div class="row pt-20">
+        <div class="col">
+            <button style="width: 97%;" mdbWavesEffect type="button" mdbBtn color="danger" class="waves-light" (click)="basicModal.show()">
+                <i class="fa fa-sign-out left" aria-hidden="true"></i>
+                Cerrar sesión
+            </button>
+        </div>
+    </div>
+
+
+    <input id="file" type="file" accept="image/*" class="hidden" (change)="changeListener($event)">
 
 </main>
+
+<div mdbModal #basicModal="mdbModal" class="modal modal-sm fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" id="myModalLabel">Confirmacion</h4>
+            </div>
+            <div class="modal-body">
+                ¿ Desea cerrar sesión ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect (click)="closeSesion()">Aceptar</button>
+                <button type="button" mdbBtn color="danger" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
