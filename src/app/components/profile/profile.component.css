@@ -1,0 +1,61 @@
+.fab {
+    float: right;
+
+    transition: all 0.1s ease-in-out;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    position: fixed;
+    right: 15px;
+    /* bottom: 50px; */
+    z-index: 100;
+}
+
+.fab i {
+    font-size: 25px;
+}
+
+main {
+    padding: 3px !important;
+}
+
+.avatar {
+    width: 110px;
+    height: 110px;
+}
+
+.profile-box {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("/assets/imgs/background-profile.jpg");
+}
+
+.card {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+}
+
+.item-profile h2 {
+    margin: 2px 0;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.item-profile p {
+    margin: 0 0 2px;
+    overflow: inherit;
+    font-size: 12px;
+    line-height: normal;
+    text-overflow: inherit;
+    color: #666;
+}
+
+.icon-profile{
+    text-align: center;
+    font-size: 25px;
+    padding-left: 28px;
+}
+
+.testimonial-card {
+    padding: 0 !important;
+}

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SesionService } from '../../services/sesion.service';
 import { User } from '../../models/User.model';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'app-profile',
@@ -11,18 +13,18 @@ export class ProfileComponent implements OnInit {
 
     public user: User;
 
-    constructor(private sesion: SesionService) { }
+    constructor(private sesion: SesionService, private router: Router, private userService: UserService) { }
 
     ngOnInit() {
         this.user = this.sesion.getUser();
     }
 
-    changeListener($event): void {
-        this.readThis($event.target);
+    selectFile() {
+        document.getElementById("file").click();
     }
 
-    readThis(inputValue: any): void {
-        var file: File = inputValue.files[0];
+    changeListener($event): void {
+        let file: File = $event.target.files[0];
         console.log(file);
         var myReader: FileReader = new FileReader();
 
@@ -31,6 +33,20 @@ export class ProfileComponent implements OnInit {
             console.log(image)
         }
         myReader.readAsDataURL(file);
+    }
+
+    getPhotoAvatar() {
+		console.log(this.user);
+		if (!this.user || !this.user.foto || this.user.foto === "") 
+			return "assets/imgs/default-avatar.jpg";
+		return this.user.foto;
+    }
+    
+    closeSesion() {
+        this.userService.signOut().then(() => {
+            this.sesion.closeSesion();
+            this.router.navigateByUrl("/");
+        });
     }
 
 }
