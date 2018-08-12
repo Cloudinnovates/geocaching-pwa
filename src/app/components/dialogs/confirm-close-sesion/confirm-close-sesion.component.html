@@ -1,6 +1,6 @@
-<h2 mat-dialog-title>Confirmación</h2>
-<mat-dialog-content>¿ Desea cerrar sesión ?</mat-dialog-content>
+<h1 mat-dialog-title>Confirmación</h1>
+<mat-dialog-content><h2>¿ Desea cerrar sesión ?</h2></mat-dialog-content>
 <mat-dialog-actions>
-    <button mdButton mdbWavesEffect mat-button (click)="closeSesion" color="primary">Si</button>
-    <button mdButton mdbWavesEffect mat-button mat-dialog-close color="danger">No</button>
+    <button mdbBtn mdbWavesEffect mat-dialog-close (click)="closeSesion()" color="primary">Si</button>
+    <button mdbBtn mdbWavesEffect mat-dialog-close color="danger">No</button>
 </mat-dialog-actions>

@@ -1,17 +1,12 @@
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container d-flex justify-content-between">
-            <a class="navbar-brand d-flex align-items-center" routerLink="/regions">
-                <i class="fa fa-arrow-left left" aria-hidden="true"></i>
-            </a>
-            <span class="navbar-brand d-flex align-items-center">Perfil de usuario</span>
-        </div>
-    </nav>
-</header>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <i class="fa fa-arrow-left left toolbar-icon" aria-hidden="true" routerLink="/regions"></i>
+        <span>Mi perfil</span>
+    </mat-toolbar-row>
+</mat-toolbar>
 
-<main role="main" class="container container-fluid mt-60">
-    <button mdbBtn (click)="selectFile()" type="button" color="danger" class="waves-light fab" [disableRipple]="true" mat-fab
-        mat-button mdbWavesEffect>
+<main role="main" class="container container-fluid">
+    <button mdbBtn (click)="selectFile()" type="button" color="danger" class="waves-light fab" mat-fab mat-button mdbWavesEffect>
         <i class="fa fa-camera" aria-hidden="true"></i>
     </button>
 
@@ -70,7 +65,7 @@
 
     <div class="row pt-20">
         <div class="col">
-            <button style="width: 97%;" mdbWavesEffect type="button" mdbBtn color="danger" class="waves-light" (click)="basicModal.show()">
+            <button style="width: 97%;" mdbWavesEffect type="button" mdbBtn color="danger" class="waves-light" (click)="openCloseSesion()">
                 <i class="fa fa-sign-out left" aria-hidden="true"></i>
                 Cerrar sesión
             </button>
@@ -81,24 +76,3 @@
     <input id="file" type="file" accept="image/*" class="hidden" (change)="changeListener($event)">
 
 </main>
-
-<div mdbModal #basicModal="mdbModal" class="modal modal-sm fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title w-100" id="myModalLabel">Confirmacion</h4>
-            </div>
-            <div class="modal-body">
-                ¿ Desea cerrar sesión ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect (click)="closeSesion()">Aceptar</button>
-                <button type="button" mdbBtn color="danger" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>

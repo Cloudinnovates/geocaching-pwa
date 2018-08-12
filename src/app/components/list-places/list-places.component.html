@@ -1,0 +1,35 @@
+<ng4-loading-spinner [loadingText]="'Cargando lista de lugares ...'"> </ng4-loading-spinner>
+
+<mat-toolbar color="primary">
+	<mat-toolbar-row>
+		<a routerLink="/regions" mdbWavesEffect class="icon-white">
+			<i class="fa fa-arrow-left left toolbar-icon" aria-hidden="true"></i>
+		</a>
+		<span>Lista de lugares</span>
+		<span class="spacer"></span>
+		<a mdbWavesEffect class="icon-white" (click)="goToMap()">
+			<i class="fa fa-map right toolbar-icon" aria-hidden="true"></i>
+		</a>
+	</mat-toolbar-row>
+</mat-toolbar>
+
+<main>
+	<div class="wrapper-empty">
+		<h4 class="center empty-text" *ngIf="showEmptyMessge"> No se econtraron resultados</h4>
+	</div>
+	<mat-list>
+		<div class="media mb-1" *ngFor="let place of places">
+			<mat-list-item mdbWavesEffect class="full-width">
+				<a class="media-left waves-light">
+					<img class="rounded-circle" [src]="getPhoto(place.foto)" style="width: 80px; height: 80px;">
+				</a>
+				<div class="media-body">
+					<h4 class="media-heading title">{{ place.nombre }}</h4>
+					<h4 class="subtitle">{{ place.direccion }}</h4>
+					<p>{{ place.categoria }}</p>
+				</div>
+			</mat-list-item>
+		</div>
+	</mat-list>
+
+</main>

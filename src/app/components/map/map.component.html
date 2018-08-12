@@ -1,0 +1,26 @@
+<ng4-loading-spinner [loadingText]="'Cargando mapa ...'"> </ng4-loading-spinner>
+
+<main class="container">
+
+	<agm-map [latitude]="lat" [longitude]="lng">
+		<agm-marker *ngFor="let place of places" [latitude]="place.latitud" [longitude]="place.longitud">
+			<agm-info-window>
+				<div class='infoMarker'>
+					<div class='row'>
+						<strong>Nombre:</strong> {{place.nombre}}</div>
+					<div class='row'>
+						<strong>Dirección:</strong> {{place.direccion}}</div>
+				</div>
+			</agm-info-window>
+		</agm-marker>
+	</agm-map>
+
+
+	<div class="row col wrapper-btnMap fixed-bottom">
+		<button (click)="goBack()" mdbBtn color="danger" class="btnMap" style="transition: none;" mdbWavesEffect>
+			<span class="button-inner">Cerrar</span>
+			<div class="button-effect"></div>
+		</button>
+	</div>
+
+</main>

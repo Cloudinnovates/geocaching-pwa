@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 .item-error {
     color: #CC0000 !important;
 }
@@ -33,4 +35,43 @@
 
 .hidden {
     display: none;
+}
+
+span.text-success, span.text-danger {
+    display: none !important;
+}
+
+.nav-item {
+    color: white;
+}
+
+.toolbar-icon {
+    padding: 0 14px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.wrapper-empty {
+    padding: 10px;
+
+    .empty-text {
+        font-size: 22px;
+        font-weight: 500;
+    }
+}
+
+.btnMap {
+    z-index: 100;
+    width: 100%;
+}
+
+.infoMarker {
+    width: 215px !important;    
+    margin-left: 20px !important;    
+}
+
+.wrapper-btnMap {
+    margin: 0 !important;
 }

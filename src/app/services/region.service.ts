@@ -13,4 +13,8 @@ export class RegionService {
     getAll(): Observable<{}[]> {
         return this.fbDatabase.list("/regiones").valueChanges();
     }
+
+    public getRegion(id: string): Observable<{}>{
+		return this.fbDatabase.object(`/regiones/${id}`).valueChanges();
+	}
 }

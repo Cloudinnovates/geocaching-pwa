@@ -5,7 +5,7 @@
         <form [formGroup]="loginForm" (ngSubmit)="doLogin()" class="col">
             <div class="md-form">
                 <i class="fa fa-envelope prefix grey-text"></i>
-                <input type="email" formControlName="correo" id="defaultForm-email" class="form-control" mdbInputDirective [mdbValidate]="false">
+                <input type="email" formControlName="correo" id="defaultForm-email" class="form-control" mdbInputDirective>
                 <label for="defaultForm-email">Correo</label>
                 <span class="item-error" *ngIf="loginForm.hasError('required', ['correo']) && loginForm.controls.correo.invalid && loginForm.controls.correo.touched">
                     El correo es obligatorio
@@ -14,7 +14,7 @@
 
             <div class="md-form">
                 <i class="fa fa-lock prefix grey-text"></i>
-                <input type="password" formControlName="password" id="defaultForm-pass" class="form-control" mdbInputDirective [mdbValidate]="false">
+                <input type="password" formControlName="password" id="defaultForm-pass" class="form-control" mdbInputDirective>
                 <label for="defaultForm-pass">Contraseña</label>
                 <span class="item-error" *ngIf="loginForm.hasError('required', ['password']) && loginForm.controls.password.invalid && loginForm.controls.password.touched">
                     La contraseña es obligatoria

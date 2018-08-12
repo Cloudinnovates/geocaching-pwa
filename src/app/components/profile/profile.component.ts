@@ -1,8 +1,8 @@
+import { ConfirmCloseSesionComponent } from './../dialogs/confirm-close-sesion/confirm-close-sesion.component';
 import { Component, OnInit } from '@angular/core';
 import { SesionService } from '../../services/sesion.service';
 import { User } from '../../models/User.model';
-import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { MatDialog } from '../../../../node_modules/@angular/material/dialog';
 
 @Component({
     selector: 'app-profile',
@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit {
 
     public user: User;
 
-    constructor(private sesion: SesionService, private router: Router, private userService: UserService) { }
+    constructor(private sesion: SesionService, private dialog: MatDialog) { }
 
     ngOnInit() {
         this.user = this.sesion.getUser();
@@ -41,12 +41,11 @@ export class ProfileComponent implements OnInit {
 			return "assets/imgs/default-avatar.jpg";
 		return this.user.foto;
     }
-    
-    closeSesion() {
-        this.userService.signOut().then(() => {
-            this.sesion.closeSesion();
-            this.router.navigateByUrl("/");
-        });
+
+    openCloseSesion() {
+        this.dialog.open(ConfirmCloseSesionComponent);
     }
+    
+    
 
 }

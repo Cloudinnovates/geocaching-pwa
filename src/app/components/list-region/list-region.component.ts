@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { RegionService } from '../../services/region.service';
 import { Region } from '../../models/Region.model';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -12,7 +13,7 @@ export class ListRegionComponent implements OnInit {
 
     public regions: Region[] = [];
 
-    constructor(private regionService: RegionService, private spinnerService: Ng4LoadingSpinnerService) {
+    constructor(private regionService: RegionService, private spinnerService: Ng4LoadingSpinnerService, private router: Router) {
     }
 
     ngOnInit() {
@@ -27,6 +28,10 @@ export class ListRegionComponent implements OnInit {
     getPhoto(url: any): string {
         if (url) return url;
         return "assets/imgs/card-default.jpg";
+    }
+
+    goToPlace(id: string){
+        this.router.navigateByUrl(`/place/${id}`);
     }
 
 }

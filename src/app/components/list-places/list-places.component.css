@@ -1,0 +1,12 @@
+.mat-list-item {
+    height: inherit !important;
+}
+
+.subtitle {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.title{
+    font-weight: 500;
+}
