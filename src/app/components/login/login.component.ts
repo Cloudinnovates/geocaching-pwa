@@ -51,7 +51,8 @@ export class LoginComponent implements OnInit {
 
     loginFacebook() {
         this.userService.loginWithFacebook().then(response => {
-            if(response){
+            if(response !== null){
+                this.sesion.saveUser(response);
                 this.router.navigateByUrl("/regions");
                 return false;
             }

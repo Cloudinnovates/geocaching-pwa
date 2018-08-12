@@ -17,11 +17,11 @@ export class PlaceService {
 	}
 
 	public getPlace(id: string){
-		return this.fbDatabase.list(`/lugares/${id}`);
+		return this.fbDatabase.object(`/lugares/${id}`).valueChanges();
 	}
 
 	public savePhoto(photo: string, idPlace: string): Promise<string> {
-		if(photo === "") return new Promise((resolve) => { return resolve(""); });
+		if(photo === "" || photo === undefined) return new Promise((resolve) => { return resolve(""); });
 		return this.storage.ref(`/place_photo/${idPlace}`).putString(photo, "data_url").then(() => {
 			return this.getPhoto(idPlace).then(url => url).catch(error => "");
 		});
@@ -35,7 +35,7 @@ export class PlaceService {
 	public createPlace(lugar: Place): Promise<Place>{
 		const idPlace = this.fbDatabase.database.ref().child("/lugares").push().key;
 		lugar.id = idPlace;
-
+		
 		return this.savePhoto(lugar.foto, lugar.id).then(url => {
 			lugar.foto = url;
 			return lugar;
@@ -54,7 +54,7 @@ export class PlaceService {
 	}
 
 	public getPlacesByIdRegion(idRegion: string) {
-		return this.fbDatabase.list("/lugares", ref => ref.orderByChild("idRegion").equalTo(Number.parseInt(idRegion))).valueChanges();
+		return this.fbDatabase.list("/lugares", ref => ref.orderByChild("idRegion").equalTo(parseInt(idRegion))).valueChanges();
 
 	}
 }

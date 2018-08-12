@@ -1,0 +1,81 @@
+<ng4-loading-spinner [loadingText]="'Registrando nuevo lugar ...'"> </ng4-loading-spinner>
+
+<mat-toolbar color="primary">
+	<mat-toolbar-row>
+		<a (click)="goBack()">
+			<i class="fa fa-arrow-left left toolbar-icon" aria-hidden="true"></i>
+		</a>
+		<span>Crear lugar</span>
+	</mat-toolbar-row>
+</mat-toolbar>
+
+<main role="main">
+	<form [formGroup]="formRegister" (ngSubmit)="doSubmit()">
+		<div class="md-form">
+			<i class="fa fa-envelope prefix grey-text"></i>
+			<input type="text" formControlName="nombre" id="nombrePlace" class="form-control" mdbInputDirective />
+			<label for="nombrePlace">Nombre</label>
+			<span class="item-error" *ngIf="formRegister.hasError('required', ['nombre']) && formRegister.controls['nombre'].invalid && formRegister.controls['nombre'].touched">
+				El nombre es obligatorio
+			</span>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-map prefix grey-text"></i>
+			<input type="text" formControlName="direccion" id="direccion" class="form-control" mdbInputDirective />
+			<label for="direccion">Dirección</label>
+			<span class="item-error" *ngIf="formRegister.hasError('required', ['direccion']) && formRegister.controls['direccion'].invalid && formRegister.controls['direccion'].touched">
+				La direccón es obligatoria
+			</span>
+		</div>
+
+		<div class="md-form">
+			<div class="row">
+				<div class="col-1">
+					<i class="fa fa-envelope prefix grey-text"></i>
+				</div>
+				<div class="col-11">
+					<mat-select class="form-control" placeholder="Categoria" formControlName="categoria" id="categoria">
+						<mat-option value="">Seleccionar</mat-option>
+						<mat-option value="AireLibre">Aire Libre</mat-option>
+						<mat-option value="LugarCerrado">Lugar Cerrado</mat-option>
+					</mat-select>
+				</div>
+
+			</div>
+			<span class="item-error" *ngIf="formRegister.hasError('required', ['categoria']) && formRegister.controls['categoria'].invalid && formRegister.controls['categoria'].touched">
+				La categoria es obligatoria
+			</span>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-pencil prefix grey-text"></i>
+			<textarea type="text" id="descripcion" class="md-textarea form-control" formControlName="descripcion" mdbInputDirective></textarea>
+			<label for="descripcion">Descripción</label>
+			<span class="item-error" *ngIf="formRegister.hasError('required', ['descripcion']) && formRegister.controls['descripcion'].invalid && formRegister.controls['descripcion'].touched">
+				La descripción es obligatoria
+			</span>
+			<span class="item-error" *ngIf="formRegister.hasError('maxlength', 'descripcion') && formRegister.controls['descripcion'].invalid && formRegister.controls['descripcion'].touched">
+				Debe ingresar máximo 255 caracteres.
+			</span>
+		</div>
+
+		<div class="md-form">
+			<button mdbBtn mdbWavesEffect type="button" mdbBtn color="danger" class="waves-light full-width btn-no-marge" (click)="selectPhoto()">
+				<i class="fa fa-camera" aria-hidden="true"></i>
+				Foto
+			</button>
+		</div>
+
+		<div class="md-form">
+			<button mdbBtn mdbWavesEffect type="usbmit" mdbBtn color="danger" class="waves-light full-width btn-no-marge" [disabled]="formRegister.invalid">
+				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+				Registrar
+			</button>
+		</div>
+
+	</form>
+
+	<input id="file" type="file" accept="image/*" class="hidden" (change)="changeListener($event)">
+
+</main>

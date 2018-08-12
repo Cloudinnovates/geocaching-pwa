@@ -62,7 +62,7 @@ export class UserService {
         return this.fbAuth.auth.signOut();
     }
 
-    loginWithFacebook(): Promise<boolean> {
+    loginWithFacebook(): Promise<User> {
 
         return this.fbAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(userFB => {
             let user = new User();
@@ -79,12 +79,12 @@ export class UserService {
                         this.fbDatabase.database.ref(`/usuarios/${user.id}`).set(user);
                 });
 
-                return true;
+                return user;
             });
 
         }).catch(error => {
             console.log(error);
-            return false;
+            return null;
         });
     }
 

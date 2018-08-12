@@ -10,3 +10,11 @@
 .title{
     font-weight: 500;
 }
+
+.wrapper-btn-register {
+    padding: 10px;
+}
+
+.wrapper-btn-register a {
+    margin: 0 !important;
+}

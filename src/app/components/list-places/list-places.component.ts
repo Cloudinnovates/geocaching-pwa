@@ -49,4 +49,12 @@ export class ListPlacesComponent implements OnInit {
 		});
 	}
 
+	goToMapPlace(id: string){
+		this.router.navigateByUrl(`/place-map/${id}`);
+		/*this.palceService.getPlace(id).subscribe(data => {
+			localStorage.setItem("place", JSON.stringify(data));
+			this.router.navigateByUrl(`/place-map`);
+		});*/
+	}
+
 }

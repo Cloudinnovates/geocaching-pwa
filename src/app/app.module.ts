@@ -29,6 +29,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { PlaceMapComponent } from './components/place-map/place-map.component';
+import { CreatePlaceComponent } from './components/create-place/create-place.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MapService } from './services/map.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -39,7 +45,9 @@ import { AgmCoreModule } from '@agm/core';
         ProfileComponent,
         ConfirmCloseSesionComponent,
         ListPlacesComponent,
-        MapComponent
+        MapComponent,
+        PlaceMapComponent,
+        CreatePlaceComponent
     ],
     imports: [
         BrowserModule,
@@ -54,16 +62,19 @@ import { AgmCoreModule } from '@agm/core';
         MatDialogModule,
         MatToolbarModule,
         MatListModule,
+        MatSelectModule,
+        HttpClientModule,
         MDBBootstrapModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebase),
         ToastrModule.forRoot(),
         Ng4LoadingSpinnerModule.forRoot(),
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAWEQl0gPjFVQ19MNWAWXWGZcTbROzbaio'
-        })
+        }),
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
     entryComponents: [ConfirmCloseSesionComponent],
-    providers: [SesionService, UserService, ToastService, RegionService, PlaceService],
+    providers: [SesionService, UserService, ToastService, RegionService, PlaceService, MapService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

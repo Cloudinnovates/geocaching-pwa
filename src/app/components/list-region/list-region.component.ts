@@ -19,10 +19,14 @@ export class ListRegionComponent implements OnInit {
     ngOnInit() {
         this.spinnerService.show();
 
-        this.regionService.getAll().subscribe((regions: Region[]) => {
-            this.regions = regions;
-            this.spinnerService.hide();
-        });
+        try {
+            this.regionService.getAll().subscribe((regions: Region[]) => {
+                this.regions = regions;
+                this.spinnerService.hide();
+            });
+        } catch (e) {
+            alert(e);
+        }
     }
 
     getPhoto(url: any): string {
@@ -30,7 +34,7 @@ export class ListRegionComponent implements OnInit {
         return "assets/imgs/card-default.jpg";
     }
 
-    goToPlace(id: string){
+    goToPlace(id: string) {
         this.router.navigateByUrl(`/place/${id}`);
     }
 

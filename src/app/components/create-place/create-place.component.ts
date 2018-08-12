@@ -1,0 +1,106 @@
+import { MapService } from './../../services/map.service';
+import { ToastService } from './../../services/toast.service';
+import { PlaceService } from './../../services/place.service';
+import { Place } from './../../models/Place.model';
+import { SesionService } from './../../services/sesion.service';
+import { User } from './../../models/User.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Ng4LoadingSpinnerService } from '../../../../node_modules/ng4-loading-spinner';
+
+@Component({
+	selector: 'app-create-place',
+	templateUrl: './create-place.component.html',
+	styleUrls: ['./create-place.component.css']
+})
+export class CreatePlaceComponent implements OnInit {
+
+	private idRegion: string;
+	public formRegister: FormGroup;
+	public photo: any;
+	private user: User;
+
+	constructor(private location: Location,
+		private route: ActivatedRoute,
+		private spinner: Ng4LoadingSpinnerService,
+		private fb: FormBuilder,
+		private sesion: SesionService,
+		private placeService: PlaceService,
+		private toast: ToastService,
+		private mapService: MapService) {
+		this.initForm();
+	}
+
+	private initForm() {
+		this.formRegister = this.fb.group({
+			nombre: ["", Validators.required],
+			direccion: ["", Validators.required],
+			categoria: ["", Validators.required],
+			descripcion: ["", [Validators.required, Validators.maxLength(255)]],
+			rating: [0]
+		});
+	}
+
+	ngOnInit() {
+		this.user = this.sesion.getUser();
+		this.route.params.subscribe(params => {
+			this.idRegion = params["id"];
+		});
+	}
+
+	goBack() {
+		this.location.back();
+	}
+
+	doSubmit() {
+		this.spinner.show();
+
+		const idUser = this.user.id;
+		const nombre = this.formRegister.get("nombre").value;
+		const direccion = this.formRegister.get("direccion").value;
+		const categoria = this.formRegister.get("categoria").value;
+		const descripcion = this.formRegister.get("descripcion").value;
+		const rating = this.formRegister.get("rating").value as number;
+
+		const place: Place = new Place("", nombre, direccion, categoria, descripcion, 0, 0, this.idRegion, rating, "", idUser);
+		if (this.photo !== "" || this.photo !== undefined) place.foto = this.photo;
+
+		this.mapService.getLatLng(direccion).then(response => {
+			if(response === null){
+				this.spinner.hide();
+				this.toast.showError("Dirección no encontrada");
+				return false;
+			}
+
+			place.latitud = response.lat;
+			place.longitud = response.lng;
+
+			this.placeService.createPlace(place).then((newPlace) => {
+				//this.ratingProvider.saveRatingPlace(newPlace.id, idUser, rating);
+				this.spinner.hide();
+				this.toast.showSuccess("Lugar creado exitosamente");
+			});
+
+		});
+
+
+	}
+
+	selectPhoto() {
+		document.getElementById("file").click();
+	}
+
+	changeListener($event): void {
+		var file: File = $event.target.files[0];
+		var myReader: FileReader = new FileReader();
+
+		myReader.onloadend = (e) => {
+			this.photo = myReader.result;
+			this.toast.showSuccess("Foto subida");
+		}
+		myReader.readAsDataURL(file);
+	}
+
+}

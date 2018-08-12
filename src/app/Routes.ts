@@ -6,6 +6,8 @@ import { RegisterUserComponent } from './components/register-user/register-user.
 import { ListRegionComponent } from './components/list-region/list-region.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuardService } from './guards/auth-guard.service';
+import { PlaceMapComponent } from './components/place-map/place-map.component';
+import { CreatePlaceComponent } from './components/create-place/create-place.component';
 
 const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -13,7 +15,9 @@ const routes: Routes = [
     { path: 'regions', component: ListRegionComponent, canActivate: [AuthGuardService] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
     { path: 'place/:id', component: ListPlacesComponent, canActivate: [AuthGuardService] },
-    { path: 'map/:id', component: MapComponent, canActivate: [AuthGuardService] }
+    { path: 'map/:id', component: MapComponent, canActivate: [AuthGuardService] },
+    { path: 'place-map/:id', component: PlaceMapComponent, canActivate: [AuthGuardService] },
+    { path: 'create-place/:id', component: CreatePlaceComponent, canActivate: [AuthGuardService] }
 ];
 
 export const PWARoutes = RouterModule.forRoot(routes);
