@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirmación</h1>
+<mat-dialog-content>
+    <h2>{{ data.message }}</h2>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mdbBtn mdbWavesEffect mat-dialog-close (click)="data.acceptFunc()" color="primary">Si</button>
+    <button mdbBtn mdbWavesEffect mat-dialog-close color="danger">No</button>
+</mat-dialog-actions>

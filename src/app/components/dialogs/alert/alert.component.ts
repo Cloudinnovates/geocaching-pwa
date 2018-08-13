@@ -1,9 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-
-interface Data {
-	message: string
-}
+import { AlertData } from '../../../models/Dialogs';
 
 @Component({
 	selector: 'app-alert',
@@ -14,7 +11,7 @@ export class AlertComponent implements OnInit {
 
 	public message: string = "";
 
-	constructor(@Inject(MAT_DIALOG_DATA) private data: Data) { 
+	constructor(@Inject(MAT_DIALOG_DATA) private data: AlertData) {
 		this.message = data.message;
 	}
 

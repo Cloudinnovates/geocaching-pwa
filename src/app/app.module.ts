@@ -23,7 +23,6 @@ import { RegionService } from './services/region.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ConfirmCloseSesionComponent } from './components/dialogs/confirm-close-sesion/confirm-close-sesion.component';
 import { ListPlacesComponent } from './components/list-places/list-places.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
@@ -37,10 +36,10 @@ import { MapService } from './services/map.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { OptionPlaceComponent } from './components/option-place/option-place.component';
-import { ConfirmDeletePlaceComponent } from './components/dialogs/confirm-delete-place/confirm-delete-place.component';
 import { EditPlaceComponent } from './components/edit-place/edit-place.component';
 import { AlertComponent } from './components/dialogs/alert/alert.component';
 import { AlertService } from './services/alert.service';
+import { DialogComponent } from './components/dialogs/dialog/dialog.component';
 
 @NgModule({
     declarations: [
@@ -49,15 +48,14 @@ import { AlertService } from './services/alert.service';
         RegisterUserComponent,
         ListRegionComponent,
         ProfileComponent,
-        ConfirmCloseSesionComponent,
         ListPlacesComponent,
         MapComponent,
         PlaceMapComponent,
         CreatePlaceComponent,
         OptionPlaceComponent,
-        ConfirmDeletePlaceComponent,
         EditPlaceComponent,
-        AlertComponent
+        AlertComponent,
+        DialogComponent
     ],
     imports: [
         BrowserModule,
@@ -84,7 +82,7 @@ import { AlertService } from './services/alert.service';
         }),
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
-    entryComponents: [ConfirmCloseSesionComponent, OptionPlaceComponent, ConfirmDeletePlaceComponent, AlertComponent],
+    entryComponents: [OptionPlaceComponent, AlertComponent, DialogComponent],
     providers: [SesionService, UserService, ToastService, RegionService, PlaceService, MapService, AlertService],
     bootstrap: [AppComponent]
 })

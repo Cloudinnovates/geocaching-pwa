@@ -1,10 +1,11 @@
-import { ConfirmCloseSesionComponent } from './../dialogs/confirm-close-sesion/confirm-close-sesion.component';
 import { Component, OnInit } from '@angular/core';
 import { SesionService } from '../../services/sesion.service';
 import { User } from '../../models/User.model';
 import { MatDialog } from '../../../../node_modules/@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
+import { DialogComponent } from '../dialogs/dialog/dialog.component';
 
 @Component({
     selector: 'app-profile',
@@ -18,7 +19,8 @@ export class ProfileComponent implements OnInit {
     constructor(private sesion: SesionService,
         private dialog: MatDialog,
         private toast: ToastService,
-        private userService: UserService) { }
+        private userService: UserService,
+        private router: Router) { }
 
     ngOnInit() {
         this.user = this.sesion.getUser();
@@ -51,8 +53,20 @@ export class ProfileComponent implements OnInit {
         return this.user.foto;
     }
 
+    private closeSesion() {
+        this.userService.signOut().then(() => {
+            this.sesion.closeSesion();
+            this.router.navigateByUrl("/");
+        });
+    }
+
     openCloseSesion() {
-        this.dialog.open(ConfirmCloseSesionComponent);
+        this.dialog.open(DialogComponent, {
+            data: {
+                message: "¿ Desea cerrar sesión ?",
+                acceptFunc: () => this.closeSesion()
+            }
+        });
     }
 
 }
