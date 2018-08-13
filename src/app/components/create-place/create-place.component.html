@@ -12,7 +12,7 @@
 <main role="main">
 	<form [formGroup]="formRegister" (ngSubmit)="doSubmit()">
 		<div class="md-form">
-			<i class="fa fa-envelope prefix grey-text"></i>
+			<i class="fa fa-pencil prefix grey-text"></i>
 			<input type="text" formControlName="nombre" id="nombrePlace" class="form-control" mdbInputDirective />
 			<label for="nombrePlace">Nombre</label>
 			<span class="item-error" *ngIf="formRegister.hasError('required', ['nombre']) && formRegister.controls['nombre'].invalid && formRegister.controls['nombre'].touched">

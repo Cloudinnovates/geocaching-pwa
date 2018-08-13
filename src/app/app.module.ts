@@ -39,6 +39,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { OptionPlaceComponent } from './components/option-place/option-place.component';
 import { ConfirmDeletePlaceComponent } from './components/dialogs/confirm-delete-place/confirm-delete-place.component';
 import { EditPlaceComponent } from './components/edit-place/edit-place.component';
+import { AlertComponent } from './components/dialogs/alert/alert.component';
+import { AlertService } from './services/alert.service';
 
 @NgModule({
     declarations: [
@@ -54,7 +56,8 @@ import { EditPlaceComponent } from './components/edit-place/edit-place.component
         CreatePlaceComponent,
         OptionPlaceComponent,
         ConfirmDeletePlaceComponent,
-        EditPlaceComponent
+        EditPlaceComponent,
+        AlertComponent
     ],
     imports: [
         BrowserModule,
@@ -81,8 +84,8 @@ import { EditPlaceComponent } from './components/edit-place/edit-place.component
         }),
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
-    entryComponents: [ConfirmCloseSesionComponent, OptionPlaceComponent, ConfirmDeletePlaceComponent],
-    providers: [SesionService, UserService, ToastService, RegionService, PlaceService, MapService],
+    entryComponents: [ConfirmCloseSesionComponent, OptionPlaceComponent, ConfirmDeletePlaceComponent, AlertComponent],
+    providers: [SesionService, UserService, ToastService, RegionService, PlaceService, MapService, AlertService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
