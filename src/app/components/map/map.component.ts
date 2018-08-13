@@ -37,7 +37,7 @@ export class MapComponent implements OnInit {
 			this.regionService.getRegion(idRegion).subscribe((data: Region) => {
 				this.lat = Number.parseFloat(`${data.latitud}`);
 				this.lng = Number.parseFloat(`${data.longitud}`);
-				this.placeService.getPlacesByIdRegion(data.id).subscribe((data: Place[]) => {
+				this.placeService.getPlacesByIdRegion(idRegion).subscribe((data: Place[]) => {
 					this.places = data;
 					this.spinnerService.hide();
 				});

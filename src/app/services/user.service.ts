@@ -6,6 +6,7 @@ import { User } from '../models/User.model';
 import * as firebase from 'firebase';
 import { Social } from '../util/Social';
 import { Observable } from 'rxjs';
+import { resolve } from '../../../node_modules/@types/q';
 
 
 @Injectable({
@@ -23,6 +24,10 @@ export class UserService {
         });
     }
 
+    public savePhoto(photo: string, idUser: string){
+		return this.storage.ref(`/profile_photo/${idUser}`).putString(photo, "data_url");
+	}
+
     public createUser(user: User): Promise<User> {
         return this.fbAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then(data => {
             user.id = data.user.uid;
@@ -33,7 +38,7 @@ export class UserService {
 
     public getPhoto(idUser: string): Promise<string> {
         const storageRef = this.storage.storage.ref().child(`/profile_photo/${idUser}`);
-        return storageRef.getDownloadURL().then(url => url).catch(error => console.log(error));
+        return storageRef.getDownloadURL().then(url => url).catch(error => "");
     }
 
     public doLogin(correo: string, password: string): Promise<User> {
@@ -64,27 +69,31 @@ export class UserService {
 
     loginWithFacebook(): Promise<User> {
 
-        return this.fbAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(userFB => {
-            let user = new User();
-
-            return this.fbAuth.auth.signInAndRetrieveDataWithCredential(userFB.credential).then(data => {
-                user.id = data.user.uid;
-                user.nombre = data.user.displayName;
-                user.foto = data.user.photoURL;
-                user.email = data.user.email;
-                user.social = Social.FACEBOOK;
-
-                this.getUser(user.id).then(userBD => {
-                    if (!userBD)
-                        this.fbDatabase.database.ref(`/usuarios/${user.id}`).set(user);
+        return new Promise((resolve, reject) => {
+            this.fbAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(userFB => {
+                let user = new User();
+    
+                return this.fbAuth.auth.signInAndRetrieveDataWithCredential(userFB.credential).then(data => {
+                    user.id = data.user.uid;
+                    user.nombre = data.user.displayName;
+                    user.foto = data.user.photoURL;
+                    user.email = data.user.email;
+                    user.social = Social.FACEBOOK;
+    
+                    this.getUser(user.id).then(userBD => {
+                        if (!userBD){
+                            this.fbDatabase.database.ref(`/usuarios/${user.id}`).set(user);
+                            resolve(user);
+                        }
+                        else {
+                            this.getPhoto(user.id).then(photo => {
+                                user.foto = photo;
+                                resolve(user);
+                            });
+                        }
+                    });
                 });
-
-                return user;
             });
-
-        }).catch(error => {
-            console.log(error);
-            return null;
         });
     }
 

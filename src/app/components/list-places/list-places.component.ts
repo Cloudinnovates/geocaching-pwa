@@ -4,6 +4,8 @@ import { PlaceService } from './../../services/place.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheet } from '../../../../node_modules/@angular/material/bottom-sheet';
+import { OptionPlaceComponent } from '../option-place/option-place.component';
 
 @Component({
 	selector: 'app-list-places',
@@ -15,12 +17,14 @@ export class ListPlacesComponent implements OnInit {
 	public places: Place[] = [];
 	public showEmptyMessge: boolean = false;
 	public idRegion: string;
+	public hideRegisterBtn: boolean = false;
 
 	constructor(private route: ActivatedRoute,
 		private spinnerService: Ng4LoadingSpinnerService,
 		private palceService: PlaceService,
 		private router: Router,
-		private regionService: RegionService) { }
+		private regionService: RegionService,
+		private bottomSheet: MatBottomSheet) { }
 
 	ngOnInit() {
 		this.spinnerService.show();
@@ -51,10 +55,17 @@ export class ListPlacesComponent implements OnInit {
 
 	goToMapPlace(id: string){
 		this.router.navigateByUrl(`/place-map/${id}`);
-		/*this.palceService.getPlace(id).subscribe(data => {
-			localStorage.setItem("place", JSON.stringify(data));
-			this.router.navigateByUrl(`/place-map`);
-		});*/
+	}
+
+	openOptions(idPlace: string) {
+		this.hideRegisterBtn = true;
+		const btnRef = this.bottomSheet.open(OptionPlaceComponent, {
+			data: {idPlace}
+		});
+
+		btnRef.afterDismissed().subscribe(() => {
+			this.hideRegisterBtn = false;
+		});
 	}
 
 }
