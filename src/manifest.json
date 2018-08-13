@@ -1,7 +1,7 @@
 {
   "name": "geocaching-pwa",
   "short_name": "geocaching-pwa",
-  "theme_color": "transparent",
+  "theme_color": "#673ab7",
   "background_color": "transparent",
   "display": "fullscreen",
   "scope": "/",
