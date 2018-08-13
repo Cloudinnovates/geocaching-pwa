@@ -3,10 +3,12 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PlaceService } from '../../services/place.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ToastService } from '../../services/toast.service';
 import { MapService } from '../../services/map.service';
 import { Place } from '../../models/Place.model';
+import { RatingService } from '../../services/rating.service';
+import { User } from '../../models/User.model';
 
 @Component({
 	selector: 'app-edit-place',
@@ -14,17 +16,18 @@ import { Place } from '../../models/Place.model';
 	styleUrls: ['./edit-place.component.css']
 })
 export class EditPlaceComponent implements OnInit {
-	
+
 	public formRegister: FormGroup;
-	private place: Place;
+    private place: Place;
+    private user: User;
 
 	constructor(private location: Location,
 		private route: ActivatedRoute,
 		private spinner: Ng4LoadingSpinnerService,
-		private fb: FormBuilder,
 		private placeService: PlaceService,
 		private toast: ToastService,
-		private mapService: MapService) {
+        private mapService: MapService,
+        private ratingService: RatingService) {
 			this.initForm();
 		}
 
@@ -44,13 +47,13 @@ export class EditPlaceComponent implements OnInit {
 	}
 
 	private initForm() {
-		this.formRegister = this.fb.group({
-			nombre: ["", Validators.required],
-			direccion: ["", Validators.required],
-			categoria: ["", Validators.required],
-			descripcion: ["", [Validators.required, Validators.maxLength(255)]],
-			rating: [0]
-		});
+        this.formRegister = new FormGroup({
+            nombre: new FormControl("", Validators.required),
+            direccion: new FormControl("", Validators.required),
+            categoria: new FormControl("", Validators.required),
+            descripcion: new FormControl("", [Validators.required, Validators.maxLength(255)]),
+            rating: new FormControl("")
+        });
 	}
 
 	goBack() {
@@ -63,17 +66,20 @@ export class EditPlaceComponent implements OnInit {
 		this.place.nombre = this.formRegister.get("nombre").value;
 		this.place.direccion = this.formRegister.get("direccion").value;
 		this.place.categoria = this.formRegister.get("categoria").value;
-		this.place.descripcion = this.formRegister.get("descripcion").value;
+        this.place.descripcion = this.formRegister.get("descripcion").value;
+        this.place.rating = this.formRegister.get("rating").value;
 
 		this.mapService.getLatLng(this.place.direccion).then(response => {
 			if(response === null){
 				this.toast.showError("Dirección no encontrada ...");
 				return false;
-			}
+            }
+
+            this.ratingService.saveRatingPlace(this.place.id, this.place.idUser, this.place.rating);
 
 			this.place.latitud = response.lat;
 			this.place.longitud = response.lng;
-			
+
 			this.placeService.editPlace(this.place).then(() => {
 				this.spinner.hide();
 				this.toast.showSuccess("El lugar ha sido editado ...");

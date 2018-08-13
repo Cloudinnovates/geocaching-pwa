@@ -6,6 +6,7 @@ import { ToastService } from '../../services/toast.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { DialogComponent } from '../dialogs/dialog/dialog.component';
+import { FileUtil } from '../../util/File';
 
 @Component({
     selector: 'app-profile',
@@ -31,19 +32,15 @@ export class ProfileComponent implements OnInit {
     }
 
     changeListener($event): void {
-        let file: File = $event.target.files[0];
-        console.log(file);
-        var myReader: FileReader = new FileReader();
-
-        myReader.onloadend = (e) => {
-            const image = myReader.result;
+        const reader = FileUtil.changeSelectFile($event);
+        reader.onloadend = () => {
+            const image = reader.result;
             this.user.foto = image;
             this.sesion.saveUser(this.user);
             this.userService.savePhoto(image, this.user.id).then(() => {
                 this.toast.showSuccess("La foto ha sido actulizada");
             });
         }
-        myReader.readAsDataURL(file);
     }
 
     getPhotoAvatar() {

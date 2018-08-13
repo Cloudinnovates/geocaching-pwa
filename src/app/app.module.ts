@@ -40,6 +40,8 @@ import { EditPlaceComponent } from './components/edit-place/edit-place.component
 import { AlertComponent } from './components/dialogs/alert/alert.component';
 import { AlertService } from './services/alert.service';
 import { DialogComponent } from './components/dialogs/dialog/dialog.component';
+import { StarRatingModule } from 'angular-star-rating';
+import { RatingService } from './services/rating.service';
 
 @NgModule({
     declarations: [
@@ -73,6 +75,7 @@ import { DialogComponent } from './components/dialogs/dialog/dialog.component';
         MatSelectModule,
         HttpClientModule,
         MatBottomSheetModule,
+        StarRatingModule.forRoot(),
         MDBBootstrapModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebase),
         ToastrModule.forRoot(),
@@ -83,7 +86,7 @@ import { DialogComponent } from './components/dialogs/dialog/dialog.component';
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
     entryComponents: [OptionPlaceComponent, AlertComponent, DialogComponent],
-    providers: [SesionService, UserService, ToastService, RegionService, PlaceService, MapService, AlertService],
+    providers: [RatingService, SesionService, UserService, ToastService, RegionService, PlaceService, MapService, AlertService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

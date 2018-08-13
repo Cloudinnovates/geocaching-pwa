@@ -26,10 +26,11 @@
 				<div class="media-body">
 					<h4 class="media-heading title">{{ place.nombre }}</h4>
 					<h4 class="subtitle">{{ place.direccion }}</h4>
-					<p>{{ place.categoria }}</p>
+                    <p>{{ place.categoria }}</p>
+                    <star-rating-control (starClickChange)="updateRating($event, place.id, place.idUser)" [rating]="place.rating" [starType]="'svg'" starRatingSizes="large" staticColor="ok" space="around" [numOfStars]="7"></star-rating-control>
 				</div>
-					<i class="fa fa-cogs" aria-hidden="true" (click)="openOptions(place.id)"></i>
-				
+				<i class="fa fa-cogs" aria-hidden="true" (click)="openOptions(place.id)"></i>
+
 			</mat-list-item>
 		</div>
 	</mat-list>

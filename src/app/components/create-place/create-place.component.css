@@ -2,3 +2,7 @@ main {
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.rating {
+    font-size: 30px;
+}

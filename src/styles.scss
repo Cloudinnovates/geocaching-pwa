@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~css-star-rating/scss/star-rating';
 
 .item-error {
     color: #CC0000 !important;
@@ -68,8 +69,8 @@ span.text-success, span.text-danger {
 }
 
 .infoMarker {
-    width: 215px !important;    
-    margin-left: 20px !important;    
+    width: 215px !important;
+    margin-left: 20px !important;
 }
 
 .wrapper-btnMap {
