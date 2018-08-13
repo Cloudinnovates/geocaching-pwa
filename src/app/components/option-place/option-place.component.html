@@ -1,14 +1,23 @@
 <mat-nav-list>
-	<a href="#" mat-list-item (click)="goToEdit($event)">
-		<span mat-line>Editar</span>
-	</a>
+    <a href="#" mat-list-item (click)="goToEdit($event)">
+        <span mat-line>
+            <i class="fa fa-pencil-square-o right toolbar-icon" aria-hidden="true"></i>
+            Editar
+        </span>
+    </a>
 
-	<a href="#" mat-list-item (click)="showDelete($event)">
-		<span mat-line>Borrar</span>
-	</a>
+    <a href="#" mat-list-item (click)="showDelete($event)">
+        <span mat-line>
+            <i class="fa fa-trash right toolbar-icon" aria-hidden="true"></i>
+            Borrar
+        </span>
+    </a>
 
-	<a href="#" mat-list-item (click)="goToMapPlace($event)">
-		<span mat-line>Ver mapa</span>
-	</a>
+    <a href="#" mat-list-item (click)="goToMapPlace($event)">
+        <span mat-line>
+            <i class="fa fa-map right toolbar-icon" aria-hidden="true"></i>
+            Ver mapa
+        </span>
+    </a>
 
 </mat-nav-list>
