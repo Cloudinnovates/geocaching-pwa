@@ -7,5 +7,6 @@ export const environment = {
     projectId: "geocaching-16daa",
     storageBucket: "geocaching-16daa.appspot.com",
     messagingSenderId: "721604754645"
-  }
+  },
+  google_key: "AIzaSyAWEQl0gPjFVQ19MNWAWXWGZcTbROzbaio"
 };

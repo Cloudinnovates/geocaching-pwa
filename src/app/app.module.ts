@@ -35,6 +35,10 @@ import { CreatePlaceComponent } from './components/create-place/create-place.com
 import { MatSelectModule } from '@angular/material/select';
 import { MapService } from './services/map.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { OptionPlaceComponent } from './components/option-place/option-place.component';
+import { ConfirmDeletePlaceComponent } from './components/dialogs/confirm-delete-place/confirm-delete-place.component';
+import { EditPlaceComponent } from './components/edit-place/edit-place.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +51,10 @@ import { HttpClientModule } from '@angular/common/http';
         ListPlacesComponent,
         MapComponent,
         PlaceMapComponent,
-        CreatePlaceComponent
+        CreatePlaceComponent,
+        OptionPlaceComponent,
+        ConfirmDeletePlaceComponent,
+        EditPlaceComponent
     ],
     imports: [
         BrowserModule,
@@ -64,16 +71,17 @@ import { HttpClientModule } from '@angular/common/http';
         MatListModule,
         MatSelectModule,
         HttpClientModule,
+        MatBottomSheetModule,
         MDBBootstrapModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebase),
         ToastrModule.forRoot(),
         Ng4LoadingSpinnerModule.forRoot(),
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAWEQl0gPjFVQ19MNWAWXWGZcTbROzbaio'
+            apiKey: environment.google_key
         }),
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
-    entryComponents: [ConfirmCloseSesionComponent],
+    entryComponents: [ConfirmCloseSesionComponent, OptionPlaceComponent, ConfirmDeletePlaceComponent],
     providers: [SesionService, UserService, ToastService, RegionService, PlaceService, MapService],
     bootstrap: [AppComponent]
 })

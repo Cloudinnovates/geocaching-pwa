@@ -54,7 +54,7 @@ export class PlaceService {
 	}
 
 	public getPlacesByIdRegion(idRegion: string) {
-		return this.fbDatabase.list("/lugares", ref => ref.orderByChild("idRegion").equalTo(parseInt(idRegion))).valueChanges();
+		return this.fbDatabase.list("/lugares", ref => ref.orderByChild("idRegion").equalTo(idRegion)).valueChanges();
 
 	}
 }

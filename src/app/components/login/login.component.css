@@ -5,3 +5,8 @@
 .button-login {
     width: 100%;
 }
+
+.btnLogin {
+    margin: 0 !important;
+    padding-bottom: 10px !important;
+}

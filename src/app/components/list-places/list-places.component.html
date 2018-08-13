@@ -19,7 +19,7 @@
 	</div>
 	<mat-list>
 		<div class="media mb-1" *ngFor="let place of places">
-			<mat-list-item mdbWavesEffect class="full-width" (click)="goToMapPlace(place.id)">
+			<mat-list-item mdbWavesEffect class="full-width">
 				<a class="media-left waves-light">
 					<img class="rounded-circle" [src]="getPhoto(place.foto)" style="width: 80px; height: 80px;">
 				</a>
@@ -28,11 +28,13 @@
 					<h4 class="subtitle">{{ place.direccion }}</h4>
 					<p>{{ place.categoria }}</p>
 				</div>
+					<i class="fa fa-cogs" aria-hidden="true" (click)="openOptions(place.id)"></i>
+				
 			</mat-list-item>
 		</div>
 	</mat-list>
 
-	<div class="wrapper-btn-register fixed-bottom">
+	<div *ngIf="!hideRegisterBtn" class="wrapper-btn-register fixed-bottom">
 		<a mdbBtn mdbWavesEffect routerLink="/create-place/{{idRegion}}" color="danger" class="full-width">
 			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 			Registrar lugar
