@@ -1,47 +1,48 @@
 {
-	"index": "/index.html",
-	"assetGroups": [
-		{
-			"name": "app",
-			"installMode": "prefetch",
-			"resources": {
-				"files": [
-					"/favicon.ico",
-					"/index.html",
-					"/*.css",
-					"/*.js"
-				]
-			},
-			"urls": [
-				"https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled-4.5.7.min.css?ver=4.5.7",
-				"https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled-4.5.7.min.css",
-				"https://maps.googleapis.com/**",
-				"https://mdbootstrap.com/**"
-			]
-		},
-		{
-			"name": "assets",
-			"installMode": "lazy",
-			"updateMode": "prefetch",
-			"resources": {
-				"files": [
-					"/assets/**"
-				]
-			}
-		}
-	],
-	"dataGroups": [
-		{
-			"name": "firebaseAPI",
-			"urls": [
-				"https://geocaching-16daa.firebaseio.com/**"
-			],
-			"cacheConfig": {
-				"strategy": "freshness",
-				"maxAge": "2h",
-				"maxSize": 100,
-				"timeout": "5s"
-			}
-		}
-	]
+    "index": "/index.html",
+    "assetGroups": [
+        {
+            "name": "app",
+            "installMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/favicon.ico",
+                    "/index.html",
+                    "/*.css",
+                    "/*.js"
+                ]
+            },
+            "urls": [
+                "https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled-4.5.7.min.css?ver=4.5.7",
+                "https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled-4.5.7.min.css",
+                "https://maps.googleapis.com/**",
+                "https://mdbootstrap.com/**",
+                "https://firebasestorage.googleapis.com/**"
+            ]
+        },
+        {
+            "name": "assets",
+            "installMode": "lazy",
+            "updateMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/assets/**"
+                ]
+            }
+        }
+    ],
+    "dataGroups": [
+        {
+            "name": "firebaseAPI",
+            "urls": [
+                "https://geocaching-16daa.firebaseio.com/**"
+            ],
+            "cacheConfig": {
+                "strategy": "freshness",
+                "maxAge": "2h",
+                "maxSize": 100,
+                "timeout": "5s"
+            }
+        }
+    ]
 }
