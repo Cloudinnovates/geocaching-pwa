@@ -5,9 +5,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { User } from '../models/User.model';
 import * as firebase from 'firebase';
 import { Social } from '../util/Social';
-import { Observable } from 'rxjs';
-import { resolve } from '../../../node_modules/@types/q';
-
 
 @Injectable({
     providedIn: 'root'
@@ -96,5 +93,10 @@ export class UserService {
             });
         });
     }
+
+    getAlltokens() {
+        return this.fbDatabase.list("/fcmTokens").valueChanges();
+    }
+
 
 }

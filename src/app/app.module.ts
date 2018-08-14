@@ -42,6 +42,9 @@ import { AlertService } from './services/alert.service';
 import { DialogComponent } from './components/dialogs/dialog/dialog.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { RatingService } from './services/rating.service';
+import { MessagingService } from './services/messaging.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @NgModule({
     declarations: [
@@ -75,6 +78,7 @@ import { RatingService } from './services/rating.service';
         MatSelectModule,
         HttpClientModule,
         MatBottomSheetModule,
+        MatSnackBarModule,
         StarRatingModule.forRoot(),
         MDBBootstrapModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebase),
@@ -86,7 +90,7 @@ import { RatingService } from './services/rating.service';
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
     entryComponents: [OptionPlaceComponent, AlertComponent, DialogComponent],
-    providers: [RatingService, SesionService, UserService, ToastService, RegionService, PlaceService, MapService, AlertService],
+    providers: [RatingService, SesionService, UserService, ToastService, RegionService, PlaceService, MapService, AlertService, MessagingService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
