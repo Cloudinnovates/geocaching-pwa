@@ -1,9 +1,9 @@
-import { MapService } from './../../services/map.service';
-import { ToastService } from './../../services/toast.service';
-import { PlaceService } from './../../services/place.service';
-import { Place } from './../../models/Place.model';
-import { SesionService } from './../../services/sesion.service';
-import { User } from './../../models/User.model';
+import { MapService } from '../../services/map.service';
+import { ToastService } from '../../services/toast.service';
+import { PlaceService } from '../../services/place.service';
+import { Place } from '../../models/Place.model';
+import { SesionService } from '../../services/sesion.service';
+import { User } from '../../models/User.model';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';

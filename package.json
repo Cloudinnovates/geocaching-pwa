@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:server": "ng build --prod & http-server dist/geocaching-pwa -p 4300",
+    "build:server": "ng build --prod -c staging & http-server dist/geocaching-pwa -p 4300",
     "deploy": "ng build --prod && firebase deploy"
   },
   "private": true,

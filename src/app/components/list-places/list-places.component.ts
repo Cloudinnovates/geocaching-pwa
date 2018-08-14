@@ -1,6 +1,6 @@
-import { RegionService } from './../../services/region.service';
-import { Place } from './../../models/Place.model';
-import { PlaceService } from './../../services/place.service';
+import { RegionService } from '../../services/region.service';
+import { Place } from '../../models/Place.model';
+import { PlaceService } from '../../services/place.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';

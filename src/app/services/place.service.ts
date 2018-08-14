@@ -1,4 +1,4 @@
-import { Place } from './../models/Place.model';
+import { Place } from '../models/Place.model';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
