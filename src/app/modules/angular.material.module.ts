@@ -15,6 +15,15 @@ import { MatSnackBarModule, MatSelectModule, MatListModule, MatToolbarModule, Ma
     ],
     entryComponents: [],
     providers: [],
-    bootstrap: []
+    bootstrap: [],
+    exports: [
+        MatButtonModule,
+        MatDialogModule,
+        MatToolbarModule,
+        MatListModule,
+        MatSelectModule,
+        MatSnackBarModule,
+        MatBottomSheetModule
+    ]
 })
 export class AngularMaterialModule { }

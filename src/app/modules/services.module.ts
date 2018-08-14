@@ -10,11 +10,6 @@ import { AlertService } from "../services/alert.service";
 import { MessagingService } from "../services/messaging.service";
 
 @NgModule({
-    declarations: [
-    ],
-    imports: [
-    ],
-    entryComponents: [],
     providers: [
         RatingService,
         SesionService,
@@ -25,7 +20,6 @@ import { MessagingService } from "../services/messaging.service";
         MapService,
         AlertService,
         MessagingService
-    ],
-    bootstrap: []
+    ]
 })
 export class ServicesModule { }
