@@ -8,7 +8,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Ng4LoadingSpinnerService } from '../../../../node_modules/ng4-loading-spinner';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { RatingService } from '../../services/rating.service';
 import { FileUtil } from '../../util/File';
 import { Message } from '../../models/Message.model';
