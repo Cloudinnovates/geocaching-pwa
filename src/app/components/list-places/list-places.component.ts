@@ -1,10 +1,10 @@
-import { RegionService } from './../../services/region.service';
-import { Place } from './../../models/Place.model';
-import { PlaceService } from './../../services/place.service';
+import { RegionService } from '../../services/region.service';
+import { Place } from '../../models/Place.model';
+import { PlaceService } from '../../services/place.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet } from '../../../../node_modules/@angular/material/bottom-sheet';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { OptionPlaceComponent } from '../option-place/option-place.component';
 import { ToastService } from '../../services/toast.service';
 import { RatingService } from '../../services/rating.service';

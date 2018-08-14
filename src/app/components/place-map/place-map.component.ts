@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Place } from './../../models/Place.model';
+import { Place } from '../../models/Place.model';
 import { Component, OnInit } from '@angular/core';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { PlaceService } from '../../services/place.service';

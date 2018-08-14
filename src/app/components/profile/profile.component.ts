@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SesionService } from '../../services/sesion.service';
 import { User } from '../../models/User.model';
-import { MatDialog } from '../../../../node_modules/@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
     changeListener($event): void {
         const reader = FileUtil.changeSelectFile($event);
         reader.onloadend = () => {
-            const image = reader.result;
+            const image = reader.result.toString();
             this.user.foto = image;
             this.sesion.saveUser(this.user);
             this.userService.savePhoto(image, this.user.id).then(() => {
