@@ -35,7 +35,10 @@
         {
             "name": "firebaseAPI",
             "urls": [
-                "https://geocaching-16daa.firebaseio.com/**"
+                "https://geocaching-16daa.firebaseio.com/**",
+                "/regiones.jso/**",
+                "/places.json/**",
+                "/rating.json/**"
             ],
             "cacheConfig": {
                 "strategy": "freshness",
