@@ -11,7 +11,9 @@ export class MapService {
 
 	public getLatLng(address: string): Promise<LatLng>{
 		return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}`).toPromise().then((response: any) => {
-			if(response.status === "ZERO_RESULTS") return null;
+            if(response.status === "ZERO_RESULTS") return null;
+            console.log(response);
+            console.log(response.results);
 			const location = response.results[0].geometry.location;
 			return new LatLng(location.lat, location.lng);
 		});

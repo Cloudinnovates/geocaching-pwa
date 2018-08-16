@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.prod';
 import { Rating } from '../models/Rating.model';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -22,15 +22,17 @@ export class RatingService {
     }
 
     getRatingPlace(idPlace: string): Observable<Rating[]> {
-        return this.http.get(`${this.url}/ratings/${idPlace}.json`).map(response => {
-            const rating: Rating[] = [];
-            if(response !== null) {
-                const keys = Object.keys(response);
-                for(const key of keys) 
-                    rating.push(response[key]);
-            }
-            return rating;
-        });
+        return this.http.get(`${this.url}/ratings/${idPlace}.json`).pipe(
+            map(response => {
+                const rating: Rating[] = [];
+                if (response !== null) {
+                    const keys = Object.keys(response);
+                    for (const key of keys)
+                        rating.push(response[key]);
+                }
+                return rating;
+            })
+        );
     }
 
     deleteRating(idPlace: string): Promise<any> {

@@ -6,7 +6,8 @@ import { PlaceService } from '../../services/place.service';
 import { ToastService } from '../../services/toast.service';
 
 interface InputData {
-    idPlace: string
+    idPlace: string,
+    updatePlace: Function
 }
 
 @Component({
@@ -41,6 +42,7 @@ export class OptionPlaceComponent implements OnInit {
     private deletePlace() {
         this.placeService.deletePlace(this.data.idPlace).then(() => {
             this.toast.showSuccess("El lugar ha sido borrado");
+            this.data.updatePlace();
         });
     }
 

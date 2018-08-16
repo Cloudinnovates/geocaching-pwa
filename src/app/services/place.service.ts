@@ -6,7 +6,7 @@ import { RatingService } from './rating.service';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
@@ -41,7 +41,7 @@ export class PlaceService {
     	return storageRef.getDownloadURL().then(url => url);
 	}
 
-	public createPlace(lugar: Place): Promise<Place>{
+	public createPlace(lugar: Place): Promise<Place> {
 		const idPlace = this.fbDatabase.database.ref().child("/lugares").push().key;
 		lugar.id = idPlace;
 
@@ -59,30 +59,32 @@ export class PlaceService {
 	}
 
 	public deletePlace(id: string): Promise<any>{
-        this.rating.getRatingPlace(id);
+        this.rating.deleteRating(id);
 		return this.fbDatabase.database.ref(`/lugares/${id}`).remove();
 	}
 
 	public getPlacesByIdRegion(idRegion: string): Observable<Place[]> {
-		return this.http.get(`${this.url}/lugares.json?orderBy="idRegion"&equalTo="${idRegion}"`).map(response => {
-			const lugares: Place[] = [];
+		return this.http.get(`${this.url}/lugares.json?orderBy="idRegion"&equalTo="${idRegion}"`).pipe(
+            map(response => {
+                const lugares: Place[] = [];
 
-			if(response !== null) {
-				const keys = Object.keys(response);
+                if (response !== null) {
+                    const keys = Object.keys(response);
 
-				for(let key of keys)
-					lugares.push(response[key]);
+                    for (let key of keys)
+                        lugares.push(response[key]);
 
-                for (let i = 0; i < lugares.length; i++) {
-                    this.rating.getRatingPlace(lugares[i].id).subscribe(response => {
-                        const ratings = response.map((v: any) => v.rating);
-                        const rating = ratings.length > 0 ? ratings.reduce((total, val) => total + val) / ratings.length : 0;
-                        lugares[i].rating = rating;
-                    });
+                    for (let i = 0; i < lugares.length; i++) {
+                        this.rating.getRatingPlace(lugares[i].id).subscribe(response => {
+                            const ratings = response.map((v: any) => v.rating);
+                            const rating = ratings.length > 0 ? ratings.reduce((total, val) => total + val) / ratings.length : 0;
+                            lugares[i].rating = rating;
+                        });
+                    }
                 }
-			}
 
-			return lugares;
-		});
+                return lugares;
+            })
+        );
 	}
 }

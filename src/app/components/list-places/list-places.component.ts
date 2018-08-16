@@ -15,44 +15,53 @@ import { RatingService } from '../../services/rating.service';
     styleUrls: ['./list-places.component.css']
 })
 export class ListPlacesComponent implements OnInit {
-
     public places: Place[] = [];
     public showEmptyMessge: boolean = false;
     public idRegion: string;
     public hideRegisterBtn: boolean = false;
 
-    constructor(private route: ActivatedRoute,
+    constructor(
+        private route: ActivatedRoute,
         private spinnerService: Ng4LoadingSpinnerService,
         private palceService: PlaceService,
         private router: Router,
         private regionService: RegionService,
         private bottomSheet: MatBottomSheet,
         private toast: ToastService,
-        private ratingService: RatingService) { }
+        private ratingService: RatingService
+    ) {}
 
     ngOnInit() {
         this.spinnerService.show();
         this.route.params.subscribe(params => {
-            this.idRegion = params["id"];
+            this.idRegion = params['id'];
 
-            this.palceService.getPlacesByIdRegion(this.idRegion).subscribe((data: Place[]) => {
-                this.places = data;
-                this.showEmptyMessge = this.places.length === 0;
-                this.spinnerService.hide();
-            });
+            this.palceService
+                .getPlacesByIdRegion(this.idRegion)
+                .subscribe((data: Place[]) => {
+                    this.places = data;
+                    this.showEmptyMessge = this.places.length === 0;
+                    this.spinnerService.hide();
+                });
 
             this.spinnerService.show();
         });
     }
 
+    private getPlaces() {
+        this.palceService.getPlacesByIdRegion(this.idRegion).subscribe((data: Place[]) => {
+            this.places = data;
+            this.showEmptyMessge = this.places.length === 0;
+        });
+    }
+
     getPhoto(photo: string) {
         if (photo) return photo;
-        return "assets/imgs/card-default.jpg";
+        return 'assets/imgs/card-default.jpg';
     }
 
     goToMap() {
         this.regionService.getRegion(this.idRegion).subscribe(data => {
-            localStorage.setItem("region", JSON.stringify(data));
             this.router.navigateByUrl(`/map/${this.idRegion}`);
         });
     }
@@ -64,7 +73,7 @@ export class ListPlacesComponent implements OnInit {
     openOptions(idPlace: string) {
         this.hideRegisterBtn = true;
         const btnRef = this.bottomSheet.open(OptionPlaceComponent, {
-            data: { idPlace }
+            data: { idPlace, updatePlace: () => this.getPlaces() }
         });
 
         btnRef.afterDismissed().subscribe(() => {
@@ -75,8 +84,7 @@ export class ListPlacesComponent implements OnInit {
     updateRating($event, idPlace: string, idUser: string) {
         const rating = $event.rating;
         this.ratingService.saveRatingPlace(idPlace, idUser, rating).then(() => {
-            this.toast.showSuccess("Rating actualizado ...");
+            this.toast.showSuccess('Rating actualizado ...');
         });
     }
-
 }
