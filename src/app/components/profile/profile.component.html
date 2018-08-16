@@ -18,7 +18,7 @@
 
             <!--Avatar-->
             <div class="avatar mx-auto">
-                <img [src]="getPhotoAvatar()" class="rounded-circle">
+                <img [src]="(user.foto) ? user.foto : 'assets/imgs/default-avatar.jpg'" class="rounded-circle">
             </div>
 
             <mdb-card-body>

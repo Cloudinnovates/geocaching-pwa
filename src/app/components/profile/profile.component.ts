@@ -43,13 +43,6 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    getPhotoAvatar() {
-        console.log(this.user);
-        if (!this.user || !this.user.foto || this.user.foto === "")
-            return "assets/imgs/default-avatar.jpg";
-        return this.user.foto;
-    }
-
     private closeSesion() {
         this.userService.signOut().then(() => {
             this.sesion.closeSesion();

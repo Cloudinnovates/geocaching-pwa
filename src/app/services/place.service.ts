@@ -4,15 +4,21 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import { RatingService } from './rating.service';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/map';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PlaceService {
 
+	private url: string = environment.firebase.databaseURL;
+
 	constructor(private fbDatabase: AngularFireDatabase,
         private storage: AngularFireStorage,
-        private rating: RatingService) {
+		private rating: RatingService,
+		private http: HttpClient) {
 	}
 
 	public getPlaces(){
@@ -57,15 +63,15 @@ export class PlaceService {
 		return this.fbDatabase.database.ref(`/lugares/${id}`).remove();
 	}
 
-	public getPlacesByIdRegion(idRegion: string) {
-        return new Observable((observer) => {
+	public getPlacesByIdRegion(idRegion: string): Observable<Place[]> {
+		return this.http.get(`${this.url}/lugares.json?orderBy="idRegion"&equalTo="${idRegion}"`).map(response => {
+			const lugares: Place[] = [];
 
-            const obsPlace = this.fbDatabase.list("/lugares/", ref => {
-                return ref.orderByChild("idRegion").equalTo(idRegion);
-            }).valueChanges();
+			if(response !== null) {
+				const keys = Object.keys(response);
 
-            obsPlace.subscribe((response: Place[]) => {
-                const lugares: Place[] = response;
+				for(let key of keys)
+					lugares.push(response[key]);
 
                 for (let i = 0; i < lugares.length; i++) {
                     this.rating.getRatingPlace(lugares[i].id).subscribe(response => {
@@ -74,10 +80,9 @@ export class PlaceService {
                         lugares[i].rating = rating;
                     });
                 }
+			}
 
-                observer.next(lugares);
-                observer.complete();
-            });
-        });
+			return lugares;
+		});
 	}
 }

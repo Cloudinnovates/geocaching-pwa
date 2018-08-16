@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
-
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Region } from '../models/Region.model';
 @Injectable({
     providedIn: 'root'
 })
 export class RegionService {
 
-    constructor(private fbDatabase: AngularFireDatabase) {
+    private url: string = environment.firebase.databaseURL;
+
+    constructor(private http: HttpClient) {
     }
 
-    getAll(): Observable<{}[]> {
-        return this.fbDatabase.list("/regiones").valueChanges();
+    getAll(): Observable<Region[]> {
+        return this.http.get<Region[]>(`${this.url}/regiones.json`);
     }
 
-    public getRegion(id: string): Observable<{}>{
-		return this.fbDatabase.object(`/regiones/${id}`).valueChanges();
+    public getRegion(id: string): Observable<Region>{
+        return this.http.get<Region>(`${this.url}/regiones/${id}.json`);
 	}
 }

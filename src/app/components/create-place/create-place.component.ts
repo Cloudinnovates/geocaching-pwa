@@ -47,7 +47,7 @@ export class CreatePlaceComponent implements OnInit {
             direccion: new FormControl("", Validators.required),
             categoria: new FormControl("", Validators.required),
             descripcion: new FormControl("", [Validators.required, Validators.maxLength(255)]),
-            rating: new FormControl("")
+            rating: new FormControl(0)
         });
     }
 
@@ -86,7 +86,8 @@ export class CreatePlaceComponent implements OnInit {
             place.longitud = response.lng;
 
             this.placeService.createPlace(place).then((newPlace) => {
-                this.ratingService.saveRatingPlace(newPlace.id, idUser, rating);
+                if(rating !== 0) 
+                    this.ratingService.saveRatingPlace(newPlace.id, idUser, rating);
                 this.spinner.hide();
                 this.toast.showSuccess("Lugar creado exitosamente");
                 this.postCreatePlace(newPlace);
