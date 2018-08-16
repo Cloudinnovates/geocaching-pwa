@@ -9,7 +9,11 @@
                     "/favicon.ico",
                     "/index.html",
                     "/*.css",
-                    "/*.js"
+                    "/*.js",
+                    "/*.ttf",
+                    "/*.woff",
+                    "/*woff2",
+                    "/*.eot"
                 ]
             },
             "urls": [
@@ -17,7 +21,8 @@
                 "https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled-4.5.7.min.css",
                 "https://maps.googleapis.com/**",
                 "https://mdbootstrap.com/**",
-                "https://firebasestorage.googleapis.com/**"
+                "https://firebasestorage.googleapis.com/**",
+                "https://graph.facebook.com/**"
             ]
         },
         {
@@ -36,7 +41,7 @@
             "name": "firebaseAPI",
             "urls": [
                 "https://geocaching-16daa.firebaseio.com/**",
-                "/regiones.jso/**",
+                "/regiones.json/**",
                 "/places.json/**",
                 "/rating.json/**"
             ],
