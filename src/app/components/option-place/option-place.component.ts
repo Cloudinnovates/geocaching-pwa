@@ -4,6 +4,8 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef, MatDialog } from '@angular/ma
 import { DialogComponent } from '../dialogs/dialog/dialog.component';
 import { PlaceService } from '../../services/place.service';
 import { ToastService } from '../../services/toast.service';
+import { NgNavigatorShareService } from 'ng-navigator-share';
+import { environment } from '../../../environments/environment.staging';
 
 interface InputData {
     idPlace: string,
@@ -17,14 +19,20 @@ interface InputData {
 })
 export class OptionPlaceComponent implements OnInit {
 
-    constructor(private router: Router,
+    public canShare: boolean = false;
+
+    constructor(
+        private router: Router,
         @Inject(MAT_BOTTOM_SHEET_DATA) public data: InputData,
         private bottomSheetRef: MatBottomSheetRef<OptionPlaceComponent>,
         private dialog: MatDialog,
         private placeService: PlaceService,
-        private toast: ToastService) { }
+        private toast: ToastService,
+        private shareService: NgNavigatorShareService
+    ) {}
 
     ngOnInit() {
+        this.canShare = this.shareService.webNavigator.share !== undefined;
     }
 
     goToMapPlace(event: MouseEvent) {
@@ -41,7 +49,7 @@ export class OptionPlaceComponent implements OnInit {
 
     private deletePlace() {
         this.placeService.deletePlace(this.data.idPlace).then(() => {
-            this.toast.showSuccess("El lugar ha sido borrado");
+            this.toast.showSuccess('El lugar ha sido borrado');
             this.data.updatePlace();
         });
     }
@@ -51,10 +59,17 @@ export class OptionPlaceComponent implements OnInit {
         this.bottomSheetRef.dismiss();
         this.dialog.open(DialogComponent, {
             data: {
-                message: "¿ Desea borrar el lugar seleccionado ?",
+                message: '¿ Desea borrar el lugar seleccionado ?',
                 acceptFunc: () => this.deletePlace()
             }
         });
     }
 
+    share(event: MouseEvent) {
+        event.preventDefault();
+        this.shareService.share({
+            title: 'Ver el mapa',
+            url: `${environment.host}/place-map/${this.data.idPlace}`
+        });
+    }
 }

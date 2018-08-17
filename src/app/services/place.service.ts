@@ -54,7 +54,7 @@ export class PlaceService {
 		});
 	}
 
-	public editPlace(lugar: Place){
+	public editPlace(lugar: Place): Promise<any>{
 		return this.fbDatabase.database.ref(`/lugares/${lugar.id}`).set(lugar);
 	}
 

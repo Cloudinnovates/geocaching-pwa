@@ -1,2 +1,3 @@
-@media (min-width:1025px) { nav { display: none; } }
-@media (min-width:1281px) { nav { display: none; } }
+main {
+    padding: 10px;
+}

@@ -15,6 +15,7 @@ import { Message } from '../../models/Message.model';
 import { environment } from '../../../environments/environment';
 import { UserService } from '../../services/user.service';
 import { MessagingService } from '../../services/messaging.service';
+import { NotificactionService } from '../../services/notificaction.service';
 
 @Component({
     selector: 'app-create-place',
@@ -37,7 +38,8 @@ export class CreatePlaceComponent implements OnInit {
         private mapService: MapService,
         private ratingService: RatingService,
         private userService: UserService,
-        private messaging: MessagingService) {
+        private messaging: MessagingService,
+        private notification: NotificactionService) {
         this.initForm();
     }
 
@@ -86,9 +88,10 @@ export class CreatePlaceComponent implements OnInit {
             place.longitud = response.lng;
 
             this.placeService.createPlace(place).then((newPlace) => {
-                if(rating !== 0) 
+                if(rating !== 0)
                     this.ratingService.saveRatingPlace(newPlace.id, idUser, rating);
                 this.spinner.hide();
+                this.notification.showNotification('Lugar creado exitosamente');
                 this.toast.showSuccess("Lugar creado exitosamente");
                 this.postCreatePlace(newPlace);
             });
@@ -113,7 +116,7 @@ export class CreatePlaceComponent implements OnInit {
     private postCreatePlace(place: Place) {
         const url = `${environment.host}/edit-place/${place.id}`;
         const body = `Se ha creado ${place.nombre} en ${place.direccion}`;
-        
+
         this.userService.getAlltokens().subscribe((tokens: string[]) => {
             const message = new Message("Nuevo lugar", body, tokens, url);
             this.messaging.sendNotification(message);

@@ -9,6 +9,7 @@ import { MapService } from '../../services/map.service';
 import { Place } from '../../models/Place.model';
 import { RatingService } from '../../services/rating.service';
 import { User } from '../../models/User.model';
+import { LatLng } from '../../models/LatLng.model';
 
 @Component({
 	selector: 'app-edit-place',
@@ -60,7 +61,7 @@ export class EditPlaceComponent implements OnInit {
 		this.location.back();
 	}
 
-	doSubmit() {
+	async doSubmit() {
 		this.spinner.show();
 
 		this.place.nombre = this.formRegister.get("nombre").value;
@@ -69,23 +70,22 @@ export class EditPlaceComponent implements OnInit {
         this.place.descripcion = this.formRegister.get("descripcion").value;
         this.place.rating = this.formRegister.get("rating").value;
 
-		this.mapService.getLatLng(this.place.direccion).then(response => {
-			if(response === null){
-				this.toast.showError("Dirección no encontrada ...");
-				return false;
-            }
+        const latLng: LatLng = await this.mapService.getLatLng(this.place.direccion);
 
-            this.ratingService.saveRatingPlace(this.place.id, this.place.idUser, this.place.rating);
+        if (latLng === null) {
+            this.toast.showError('Dirección no encontrada ...');
+            return false;
+        }
 
-			this.place.latitud = response.lat;
-			this.place.longitud = response.lng;
+        this.ratingService.saveRatingPlace(this.place.id, this.place.idUser, this.place.rating);
 
-			this.placeService.editPlace(this.place).then(() => {
-				this.spinner.hide();
-				this.toast.showSuccess("El lugar ha sido editado ...");
-			});
+        this.place.latitud = latLng.lat;
+        this.place.longitud = latLng.lng;
 
-		});
+        await this.placeService.editPlace(this.place);
+
+        this.spinner.hide();
+        this.toast.showSuccess("El lugar ha sido editado ...");
 
 	}
 

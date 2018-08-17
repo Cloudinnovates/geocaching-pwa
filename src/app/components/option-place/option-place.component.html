@@ -20,4 +20,11 @@
         </span>
     </a>
 
+    <a *ngIf="canShare" href="#" mat-list-item (click)="share($event)">
+        <span mat-line>
+            <i class="fa fa-share-alt right toolbar-icon" aria-hidden="true"></i>
+            Compartir
+        </span>
+    </a>
+
 </mat-nav-list>

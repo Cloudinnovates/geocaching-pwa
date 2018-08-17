@@ -9,7 +9,7 @@
 
 
 
-<main class="center container mt-100" role="main">
+<main class="center container0" role="main">
     <form [formGroup]="registerForm" (ngSubmit)="doRegister()">
         <div class="md-form">
             <i class="fa fa-envelope prefix grey-text"></i>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="text-center">
-            <button mdbWavesEffect type="submit" mdbBtn color="danger" sclass="waves-light" class="button-login" [disabled]="registerForm.invalid">
+            <button mdbWavesEffect type="submit" mdbBtn color="danger" sclass="waves-light" class="btn-no-margen full-width button-login" [disabled]="registerForm.invalid">
                 <i class="fa fa-user-plus left" aria-hidden="true"></i>
                 Registrarse
             </button>

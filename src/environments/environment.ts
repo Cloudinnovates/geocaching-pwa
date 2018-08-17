@@ -12,7 +12,7 @@ export const environment = {
 		storageBucket: "geocaching-16daa.appspot.com",
 		messagingSenderId: "721604754645"
 	},
-	google_key: "AIzaSyAWEQl0gPjFVQ19MNWAWXWGZcTbROzbaio",
+    google_key: "AIzaSyAWEQl0gPjFVQ19MNWAWXWGZcTbROzbaio",
 	host: "localhost:4200"
 };
 
