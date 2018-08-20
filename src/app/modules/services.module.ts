@@ -9,6 +9,7 @@ import { MapService } from "../services/map.service";
 import { AlertService } from "../services/alert.service";
 import { MessagingService } from "../services/messaging.service";
 import { NotificactionService } from "../services/notificaction.service";
+import { StorageService } from "../services/storage.service";
 
 @NgModule({
     providers: [
@@ -21,7 +22,8 @@ import { NotificactionService } from "../services/notificaction.service";
         MapService,
         AlertService,
         MessagingService,
-        NotificactionService
+        NotificactionService,
+        StorageService
     ]
 })
 export class ServicesModule { }

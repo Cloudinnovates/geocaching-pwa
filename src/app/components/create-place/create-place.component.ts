@@ -16,6 +16,8 @@ import { environment } from '../../../environments/environment';
 import { UserService } from '../../services/user.service';
 import { MessagingService } from '../../services/messaging.service';
 import { NotificactionService } from '../../services/notificaction.service';
+import { NetworkUtil } from '../../util/NetworkUtil';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
     selector: 'app-create-place',
@@ -39,7 +41,8 @@ export class CreatePlaceComponent implements OnInit {
         private ratingService: RatingService,
         private userService: UserService,
         private messaging: MessagingService,
-        private notification: NotificactionService) {
+        private notification: NotificactionService,
+        private storage: StorageService) {
         this.initForm();
     }
 
@@ -76,6 +79,13 @@ export class CreatePlaceComponent implements OnInit {
 
         const place: Place = new Place("", nombre, direccion, categoria, descripcion, 0, 0, this.idRegion, rating, "", idUser);
         if (this.photo !== "" || this.photo !== undefined) place.foto = this.photo;
+
+        if(!NetworkUtil.isOnline()){
+            this.storage.savePlace(place);
+            this.spinner.hide();
+            this.toast.showSuccess('Lugar creado exitosamente');
+            return false;
+        }
 
         this.mapService.getLatLng(direccion).then(response => {
             if (response === null) {

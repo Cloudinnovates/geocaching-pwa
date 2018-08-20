@@ -4,6 +4,7 @@ import { MessagingService } from './services/messaging.service';
 import { AlertService } from './services/alert.service';
 import { MatSnackBar } from '@angular/material';
 import { ToastService } from './services/toast.service';
+import { StorageService } from './services/storage.service';
 
 @Component({
     selector: 'app-root',
@@ -16,8 +17,8 @@ export class AppComponent {
 
     constructor(private messaging: MessagingService,
         private toast: ToastService,
-        private snackBar: MatSnackBar
-    ) {
+        private snackBar: MatSnackBar,
+        private storageSvc: StorageService) {
         this.init();
         this.initEvents();
     }
@@ -37,6 +38,7 @@ export class AppComponent {
     private initEvents() {
         window.addEventListener('online', () => {
             this.toast.showSuccess("Se ha conectado a internet");
+            this.storageSvc.syncAllPlaces();
         });
 
         window.addEventListener('offline', () => {
