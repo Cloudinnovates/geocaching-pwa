@@ -1,3 +1,4 @@
+import { SesionService } from './sesion.service';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { HttpClient } from '@angular/common/http';
@@ -12,8 +13,10 @@ import { map } from 'rxjs/operators';
 export class RatingService {
 
     private url: string = environment.firebase.databaseURL;
+    private authToken: string = "";
 
-    constructor(private fbDatabase: AngularFireDatabase, private http: HttpClient){
+    constructor(private fbDatabase: AngularFireDatabase, private http: HttpClient, private sesion: SesionService) {
+        this.authToken = this.sesion.getUser().token;
     }
 
     saveRatingPlace(idPlace: string, idUser: string, rating: number): Promise<any> {
@@ -22,7 +25,7 @@ export class RatingService {
     }
 
     getRatingPlace(idPlace: string): Observable<Rating[]> {
-        return this.http.get(`${this.url}/ratings/${idPlace}.json`).pipe(
+        return this.http.get(`${this.url}/ratings/${idPlace}.json?auth=${this.authToken}`).pipe(
             map(response => {
                 const rating: Rating[] = [];
                 if (response !== null) {

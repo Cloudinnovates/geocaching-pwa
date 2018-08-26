@@ -21,9 +21,9 @@ export class UserService {
         });
     }
 
-    public savePhoto(photo: string, idUser: string){
-		return this.storage.ref(`/profile_photo/${idUser}`).putString(photo, "data_url");
-	}
+    public savePhoto(photo: string, idUser: string) {
+        return this.storage.ref(`/profile_photo/${idUser}`).putString(photo, "data_url");
+    }
 
     public createUser(user: User): Promise<User> {
         return this.fbAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then(data => {
@@ -44,6 +44,10 @@ export class UserService {
             user.id = data.user.uid;
             user.email = data.user.email;
 
+            const promiseToken = data.user.getIdToken().then(r => {
+                user.token = r;
+            });
+
             const promisePhoto = this.getPhoto(user.id).then(url => {
                 user.foto = url
             }).catch(() => {
@@ -54,7 +58,7 @@ export class UserService {
                 user.nombre = `${userBD.nombre} ${userBD.apellido}`;
             });
 
-            return Promise.all([promisePhoto, promiseUser]).then(() => {
+            return Promise.all([promisePhoto, promiseUser, promiseToken]).then(() => {
                 return user;
             });
         });
@@ -69,16 +73,16 @@ export class UserService {
         return new Promise((resolve, reject) => {
             this.fbAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(userFB => {
                 let user = new User();
-    
+
                 return this.fbAuth.auth.signInAndRetrieveDataWithCredential(userFB.credential).then(data => {
                     user.id = data.user.uid;
                     user.nombre = data.user.displayName;
                     user.foto = data.user.photoURL;
                     user.email = data.user.email;
                     user.social = Social.FACEBOOK;
-    
+
                     this.getUser(user.id).then(userBD => {
-                        if (!userBD){
+                        if (!userBD) {
                             this.fbDatabase.database.ref(`/usuarios/${user.id}`).set(user);
                             resolve(user);
                         }

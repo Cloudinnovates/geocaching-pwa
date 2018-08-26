@@ -8,7 +8,8 @@ export class User {
 		public password: string = "",
 		public id: string = "",
 		public foto: string = "",
-		public social: string = ""
+		public social: string = "",
+		public token: string = ""
 	){
 		this.social = Social.EMAIL;
 	}

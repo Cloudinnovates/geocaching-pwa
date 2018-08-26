@@ -1,3 +1,4 @@
+import { SesionService } from './sesion.service';
 import { Place } from '../models/Place.model';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -14,11 +15,14 @@ import { map } from 'rxjs/operators';
 export class PlaceService {
 
 	private url: string = environment.firebase.databaseURL;
+	private authToken: string = "";
 
 	constructor(private fbDatabase: AngularFireDatabase,
         private storage: AngularFireStorage,
 		private rating: RatingService,
-		private http: HttpClient) {
+		private http: HttpClient,
+		private sesion: SesionService) {
+			this.authToken = this.sesion.getUser().token;
 	}
 
 	public getPlaces(){
@@ -64,7 +68,7 @@ export class PlaceService {
 	}
 
 	public getPlacesByIdRegion(idRegion: string): Observable<Place[]> {
-		return this.http.get(`${this.url}/lugares.json?orderBy="idRegion"&equalTo="${idRegion}"`).pipe(
+		return this.http.get(`${this.url}/lugares.json?orderBy="idRegion"&equalTo="${idRegion}"&auth=${this.authToken}`).pipe(
             map(response => {
                 const lugares: Place[] = [];
 
