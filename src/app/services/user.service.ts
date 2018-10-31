@@ -28,8 +28,11 @@ export class UserService {
     public createUser(user: User): Promise<User> {
         return this.fbAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then(data => {
             user.id = data.user.uid;
-            this.fbDatabase.database.ref(`/usuarios/${user.id}`).set(user);
-            return user;
+            return data.user.getIdToken().then(token => {
+                user.token = token;
+                this.fbDatabase.database.ref(`/usuarios/${user.id}`).set(user);
+                return user;
+            });
         });
     }
 
