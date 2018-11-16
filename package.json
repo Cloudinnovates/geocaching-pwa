@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:server": "ng build --prod -c staging & http-server dist/geocaching-pwa -p 4300",
-    "deploy": "ng build --prod && firebase deploy"
+    "deploy": "ng build --prod --base-href https://felagos.github.io/geocaching-pwa/ && ngh --no-silent --dir dist/geocaching-pwa"
   },
   "private": true,
   "dependencies": {
@@ -63,6 +63,7 @@
     "protractor": "^5.4.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
-    "typescript": "~2.7.2"
+    "typescript": "~2.7.2",
+    "angular-cli-ghpages": "^0.5.3"
   }
 }
